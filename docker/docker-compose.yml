@@ -2,15 +2,18 @@
 version: '3.1'
 
 services:
-  mysql-db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+  db:
+    image: postgres
     restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: password
-
+      POSTGRES_PASSWORD: password
+  # Ideally we'd like to mount the volume on your disk in order to not lose data.
+  # But this tiny project is based on my windows OS which docker volume mount is
+  # not stable yet, so I decided to comment the line below out.
+  # volumes:
+  #   - /my/own/datadir:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
